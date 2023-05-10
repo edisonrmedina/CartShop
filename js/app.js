@@ -156,10 +156,16 @@ function initAppDark(){
             modal.style.display = "block";
             modal.querySelector('.modal-content').innerHTML =  `
             <span class="close">&times;</span>
-            <img src="image/${value.image}">
-            <div class="title">${value.name}</div>
-            <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCard(${key})">Add To Card</button>`;
+            <div class = "modal-content-inside">
+              <img src="image/${value.image}">
+              <div class="title">${value.name}</div>
+              <div class="price">${value.price.toLocaleString()}</div>
+            </div>
+            <div class = "modal-content-info">
+                <p class ="modal-content-inside-paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                    <button onclick="addToCard(${key})">Add To Card</button>
+            </div>`;
+            ;
             let closeModal = modal.querySelector('.modal-content').querySelector('.close');
             closeModal.onclick = function (){
                 modal.style.display = "none";
