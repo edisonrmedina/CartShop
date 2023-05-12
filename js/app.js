@@ -13,6 +13,7 @@ let imgShop = document.querySelector('.img-shop');
 let h1Dark = document.querySelectorAll('.h1-dark');
 let modal = document.querySelector('.modal');
 let closeModal = document.querySelector('.close');
+let darkModeEnabled = false;
 
 //Listeners
 openShopping.addEventListener('click', ()=>{
@@ -33,15 +34,18 @@ darkMode.addEventListener('click',() => {
         h1Dark.forEach((h1) => {
             h1.style.color = 'black';
         });
+        darkModeEnabled = false;
         initApp();
         // Haz algo cuando el modo oscuro se active
       } else {
         body.classList.add('body-dark-mode');
         imgDark.src = "image/darkModeDark.svg";
         imgShop.src = "image/shoppingDark.svg"
+        darkModeEnabled = true;
         h1Dark.forEach((h1) => {
             h1.style.color = '#858788';
         });
+        
         initAppDark();
         // Haz algo cuando el modo oscuro se desactive
       }
@@ -108,13 +112,14 @@ let products = [
 
 let listCards  = [];
 
+if (localStorage.getItem('listaCards')) {
+    listCards = JSON.parse(localStorage.getItem('listaCards'));
+    reloadCard();
+}
+
 //Iniciamos la App en modo Normal
 function initApp(){
-    debugger;
-    if (localStorage.getItem('listaCards')) {
-        listCards = JSON.parse(localStorage.getItem('listaCards'));
-        reloadCard();
-    }
+    
     list.innerHTML = "";
     products.forEach((value, key) =>{
         let newDiv = document.createElement('div');
@@ -262,5 +267,11 @@ function payCart(){
             }
         });
     });
-    initApp();
+
+    if(!darkModeEnabled){
+        initApp();
+    }else{
+        initAppDark();
+    }
+    
 }
